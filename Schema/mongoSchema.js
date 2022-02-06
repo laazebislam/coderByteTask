@@ -63,7 +63,7 @@ let submitDoc = async (textId) => {
   );
 };
 let approveDoc = async (textId) => {
-  // submitDoc
+  // approve deoc
   let db = getMongooseDocDB();
   return db.findOneAndUpdate(
     { _id: textId.toObjectId(), submited: true },
@@ -71,7 +71,7 @@ let approveDoc = async (textId) => {
   );
 };
 let rejectDoc = async (textId) => {
-  // submitDoc
+  // reject dox
   let db = getMongooseDocDB();
   return db.findOneAndUpdate(
     { _id: textId.toObjectId(), submited: true },

@@ -94,6 +94,7 @@ let index = () => {
       let { textId, language = "en" } = req.params;
       let data = await findTextById(textId);
       let textFiltred = [];
+      // detect language of every word using API then split them
       await Promise.all(
         data.text
           .split(" ")
@@ -145,7 +146,7 @@ let index = () => {
       });
     }
   });
-  // add text to database
+  // fuzzy search from db
   router.post("/text/search", async (req, res) => {
     let { q } = QueryParse(req.query);
     try {
@@ -161,7 +162,7 @@ let index = () => {
       });
     }
   });
-  // add text to database
+  // status of documents
   router.post("/text/:textId/status", async (req, res) => {
     let { submit, approve, reject } = req.body;
     let { textId } = req.params;
@@ -174,7 +175,6 @@ let index = () => {
       } else if (reject) {
         data = await rejectDoc(textId);
       }
-      console.log(data, " =======>");
       res.status(200).json({
         ok: data ? "1" : "0",
       });
